@@ -30,7 +30,7 @@ moos.iso: moos.bin
 	rm -rf iso
 
 run: moos.iso
-	VirtualBox --startvm 'My OS'
+	VirtualBox --startvm 'MoOS'
 
 clean:
 	rm *.o
