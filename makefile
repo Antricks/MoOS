@@ -29,9 +29,6 @@ moos.iso: moos.bin
 	grub-mkrescue --output=moos.iso iso
 	rm -rf iso
 
-run: moos.iso
-	VirtualBox --startvm 'MoOS'
-
 clean:
 	rm *.o
 	rm moos.bin
