@@ -1,5 +1,5 @@
 # MoOS
-> The MoOS is an operating system written in C++ and GNU Assembler based on the tutorial on https://wyoos.org/
+> The MoOS is a simple operating system written in C++ and GNU Assembler based on the tutorial on https://wyoos.org/
 
 To create a VM bootable image file use `make moos.iso` and use the file as boot image in your VM of choice. In this case VirtualBox was used for development.  
 Actually booting this OS on a live mashine is very experimental and it should not be expected to work on a modern mashine. 
