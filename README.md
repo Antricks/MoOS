@@ -2,8 +2,8 @@
 > The MoOS is a simple operating system written in C++ and GNU Assembler based on the tutorial on https://wyoos.org/
 
 To create a VM bootable image file use `make moos.iso` and use the file as boot image in your VM of choice. In this case VirtualBox was used for development.  
-Actually booting this OS on a live mashine is very experimental and it should not be expected to work on a modern mashine. 
-To try booting MoOS this way, use `make moos.bin` and copy the resulting file into */boot/*, then create a menu entry in the grub config (*/boot/grub/grub.cfg*) the following way:
+Actually booting this OS on a live machine is very experimental and it should not be expected to work on a modern machine. 
+Anyways, to try booting MoOS this way, use `make moos.bin` and copy the resulting file into */boot/*, then create a menu entry in the grub config (*/boot/grub/grub.cfg*) the following way:
 
 ```
 menuentry "MoOS" {
