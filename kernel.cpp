@@ -45,6 +45,8 @@ extern "C" void kernelMain(const void* multiboot_structure, unsigned int multibo
     interrupts.activate();
     puts("done");
 
+    print("Currently this screen is the only thing I can offer here. Feel free to move around your mouse or type something nice... Have fun ;D");
+
     while(true) {
 
     }
