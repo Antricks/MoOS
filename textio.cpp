@@ -32,29 +32,35 @@ void clear() {
     cursor = 0;
 }
 
-void print(const char* text, char style) {
+uint32_t printAt(uint32_t position, const char* text, char style = '\x0f') {
     for(int i = 0; true ; i++) {
         if(text[i] == '\n') {
-            cursor += 80-(cursor%80);
+            position += 80-(position%80);
             continue;
         }
         if(text[i] == '\t') {
-            mem_fill_16((TextMemory+cursor),(TextMemory+cursor+(3-(cursor%4))), style << 8 & 0xF0FF | 0x0800 | '-');
-            cursor += 4-(cursor%4);
+            mem_fill_16((TextMemory+position),(TextMemory+position+(3-(position%4))), style << 8 & 0xF0FF | 0x0800 | '-');
+            position += 4-(position%4);
             continue;
         }
         if(text[i] == '\b') {
-            cursor--;
-            TextMemory[cursor] = 0;
+            position--;
+            TextMemory[position] = 0;
             continue;
         }
         if(text[i] == '\x00') {
             break;
         }
-        TextMemory[cursor] = (uint16_t) style << 8 | text[i];
-        cursor = (cursor + 1) % (80*25);
+        TextMemory[position] = (uint16_t) style << 8 | text[i];
+        position = (position + 1) % (80*25);
     }
     render();
+
+    return position;
+}
+
+void print(const char* text, char style = '\x0f') {
+    cursor = printAt(cursor, text, style);
 }
 
 void print_raw(const char* text, char style) {
@@ -225,4 +231,15 @@ void memory_dump_b(void* pointer, unsigned int words, int steps, int base) {
     }
     print("\n", 0x00);
     print("\n", 0x00);
+}
+
+void mouseDebug(bool leftDown, bool rightDown, bool wheelDown) {
+    if(leftDown) printAt(80*25-3, "L");
+    else printAt(80*25-3, "-");
+
+    if(rightDown) printAt(80*25-2, "R");
+    else printAt(80*25-2, "-");
+
+    if(wheelDown) printAt(80*25-1, "W");
+    else printAt(80*25-1, "-");
 }

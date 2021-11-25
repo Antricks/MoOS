@@ -106,6 +106,9 @@ uint32_t KeyboardDriver::handleInterrupt(uint32_t esp) {
         case(0x48): moveCursor(0, -1); break;
         case(0x50): moveCursor(0, 1); break;
 
+        case(0x47): cursor -= cursor % 80; break; // pos1
+        case(0x4F): cursor += 79 - cursor % 80; break; // end
+
         case(0xE0): break;
 
 

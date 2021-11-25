@@ -43,7 +43,7 @@ extern "C" void kernelMain(const void* multiboot_structure, unsigned int multibo
 
     print("\n");
     print("WELCOME TO MoOS!\n", 0x0b);
-    print("Currently, this screen is the only thing I can offer here.\nFeel free to move around your mouse or type something nice... Have fun ;D");
+    print("Currently, this screen is the only thing I can offer here.\nFeel free to move around your mouse or type something nice... Have fun ;D\n");
 
     while(true) {
 

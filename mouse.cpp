@@ -6,6 +6,10 @@
 double mouseX;
 double mouseY;
 
+bool leftDown;
+bool rightDown;
+bool wheelDown;
+
 MouseDriver::MouseDriver(InterruptManager* manager)
 : InterruptHandler(0x2C, manager),
 dataPort(0x60),
@@ -39,9 +43,6 @@ MouseDriver::~MouseDriver() {
 uint32_t MouseDriver::handleInterrupt(uint32_t esp) {
     uint8_t status = commandPort.read();
     
-    signed int xd = 0;
-    signed int yd = 0;
-
     if(!(status & 0x20)) {
         return esp;
     } 
@@ -50,27 +51,37 @@ uint32_t MouseDriver::handleInterrupt(uint32_t esp) {
     offset = (offset + 1) % 3;
 
     if(offset == 0) {
-        mouseX += buffer[1]/10;
+        mouseX += buffer[1]/16;
         
         if(mouseX > 79)
             mouseX = 79;
         if(mouseX < 0)
             mouseX = 0;
 
-        mouseY -= buffer[2]/10;
+        mouseY -= buffer[2]/16;
         
         if(mouseY > 24)
             mouseY = 24;
         if(mouseY < 0)
             mouseY = 0;
+
+
+        buttons = buffer[0] & 0x07;
     
-        for(uint8_t i = 0; i < 3; i++) {
-            if((buffer[3] & ( 1 << i)) != (buttons & ( 1 << i))) {
-                print("button press");
+        if(buttons) { // left down
+            leftDown = buttons & 0x01;
+            rightDown = buttons & 0x02;
+            wheelDown = buttons & 0x04;
+        } else { // release
+            if(leftDown)
                 cursor = mouseX+mouseY*80;
-            }
+
+            leftDown = false;
+            rightDown = false;
+            wheelDown = false;
         }
-        buttons = buffer[3];
+
+        mouseDebug(leftDown, rightDown, wheelDown);
     }
     return esp;
 }

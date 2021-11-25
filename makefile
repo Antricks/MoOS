@@ -6,8 +6,6 @@ LDPARAMS = -melf_i386
 
 objects = loader.o kernel.o gdt.o memory.o textio.o port.o interrupts.o interruptstubs.o keyboard.o clock.o mouse.o
 
-
-
 %.o: %.cpp
 	gcc $(GCCPARAMS) -c -o $@ $<
 
