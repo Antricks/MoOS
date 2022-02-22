@@ -13,4 +13,4 @@ menuentry "MoOS" {
 }
 ``` 
 
-I recommend being careful editing the grub config as it has the potential of breaking the boot process. If you don't know exactly what you're doing there, better just let it be or don't blame me if something goes wrong. You are better of using a VM anyway.
+I recommend being careful editing the grub config as it has the potential of breaking the boot process. If you don't know exactly what you're doing there, better just let it be or don't blame me if something goes wrong. You are better off using a VM anyway.
